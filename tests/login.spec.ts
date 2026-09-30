@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test'
 
-test('Login to hrm', async ({ page }) => {
+test('Login to hrm valido', async ({ page }) => {
 
     await page.goto('https://opensource-demo.orangehrmlive.com/')
     await page.getByRole('textbox', {name: 'Username'}).fill('Admin')
@@ -9,4 +9,16 @@ test('Login to hrm', async ({ page }) => {
 
 
     await expect(page.getByRole('link', {name: 'Admin'})).toBeVisible()
+})
+
+
+test('Login to hrm invalido', async ({ page }) => {
+
+    await page.goto('https://opensource-demo.orangehrmlive.com/')
+    await page.getByRole('textbox', {name: 'Username'}).fill('Admin')
+    await page.getByRole('textbox', {name: 'Password'}).fill('admin1234')
+    await page.getByRole('button', {name: 'Login'}).click()
+
+    await expect(page.getByText('Invalid credentials')).toBeVisible()
+
 })
